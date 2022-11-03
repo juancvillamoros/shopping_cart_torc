@@ -21,7 +21,7 @@ class OrderItemsController < ApplicationController
 
   # POST /order_items or /order_items.json
   def create
-    @order= current_user
+    @order= current_order
     @order_item = @order.order_items.new(order_item_params)
 
     respond_to do |format|
@@ -38,7 +38,7 @@ class OrderItemsController < ApplicationController
 
   # PATCH/PUT /order_items/1 or /order_items/1.json
   def update
-    @order= current_user
+    @order= current_order
     @order_item = @order.order_items.find(params[:id]) 
     @order_items = @order.order_items
     respond_to do |format|
@@ -54,7 +54,7 @@ class OrderItemsController < ApplicationController
 
   # DELETE /order_items/1 or /order_items/1.json
   def destroy
-    @order= current_user
+    @order= current_order
     @order_item = @order.order_items.find(params[:id])
     @order_item.destroy
     @order_items = @order.order_items

@@ -224,6 +224,7 @@ DEPENDENCIES
   debug
   importmap-rails
   jbuilder
+  less-rails
   puma (~> 5.0)
   rails (~> 7.0.4)
   selenium-webdriver
@@ -231,7 +232,7 @@ DEPENDENCIES
   sqlite3 (~> 1.4)
   stimulus-rails
   turbo-rails
-  twitter-bootstrap-rails (~> 5.0)
+  twitter-bootstrap-rails
   tzinfo-data
   web-console
   webdrivers
