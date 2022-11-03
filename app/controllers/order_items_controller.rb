@@ -21,7 +21,8 @@ class OrderItemsController < ApplicationController
 
   # POST /order_items or /order_items.json
   def create
-    @order_item = OrderItem.new(order_item_params)
+    @order= current_user
+    @order_item = @order.order_items.new(order_item_params)
 
     respond_to do |format|
       if @order_item.save
@@ -32,12 +33,16 @@ class OrderItemsController < ApplicationController
         format.json { render json: @order_item.errors, status: :unprocessable_entity }
       end
     end
+    session[:order_id] = @order.id
   end
 
   # PATCH/PUT /order_items/1 or /order_items/1.json
   def update
+    @order= current_user
+    @order_item = @order.order_items.find(params[:id]) 
+    @order_items = @order.order_items
     respond_to do |format|
-      if @order_item.update(order_item_params)
+      if @order_item.update_attributes(order_item_params)
         format.html { redirect_to order_item_url(@order_item), notice: "Order item was successfully updated." }
         format.json { render :show, status: :ok, location: @order_item }
       else
@@ -49,7 +54,10 @@ class OrderItemsController < ApplicationController
 
   # DELETE /order_items/1 or /order_items/1.json
   def destroy
+    @order= current_user
+    @order_item = @order.order_items.find(params[:id])
     @order_item.destroy
+    @order_items = @order.order_items
 
     respond_to do |format|
       format.html { redirect_to order_items_url, notice: "Order item was successfully destroyed." }
